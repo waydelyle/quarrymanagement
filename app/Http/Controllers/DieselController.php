@@ -2,6 +2,7 @@
 
 use App\Diesel;
 use App\Http\Requests;
+use App\Vehicle;
 use Illuminate\Http\Request;
 
 class DieselController extends Controller
@@ -9,21 +10,41 @@ class DieselController extends Controller
 
     public function show()
     {
-        $diesel = Diesel::all();
+        $diesel = Diesel::take(100)->get();
+        $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
+        $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
-        return view('diesel', ['diesel' => $diesel]);
+        $stock = $this->calculateStock();
+
+        return view('diesel', ['diesel' => $diesel, 'vehicles' => $vehicles, 'meter' => $meter, 'stock' => $stock]);
     }
 
     public function add(Request $request)
     {
         if($request->ajax()){
 
-            $diesel = Diesel::create([
-                'vehicle_id' => $request->get('vehicle_id'),
-                'amount' => $request->get('amount')
-            ]);
+            $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
-            return json_encode($diesel);
+            if( ! empty($meter)){
+                $diesel = Diesel::create([
+                    'vehicle_id' => Vehicle::NO_VEHICLE,
+                    'amount' => $request->get('amount'),
+                    'meter' => $meter->meter
+                ]);
+
+                $response = [
+                    'vehicle' => ($diesel->vehicle->id != Vehicle::NO_VEHICLE) ? $diesel->vehicle->registration : '',
+                    'amount' => $diesel->amount,
+                    'action' => '+',
+                    'meter' => $diesel->meter,
+                    'date' => $diesel->created_at->format('Y-m-d'),
+                    'time' => $diesel->created_at->format('H:m'),
+                    'auth' => $diesel->user_id
+                ];
+
+                return json_encode($response);
+            }
+
         }
     }
 
@@ -31,17 +52,26 @@ class DieselController extends Controller
     {
         if($request->ajax()){
 
-            $amount = $request->get('amount');
-            if($request->get('amount') > 0){
-                $amount = 0 - $request->get('amount');
+            $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
+
+            if(empty($meter) || $meter->meter <  $request->get('meter')){
+                $diesel = Diesel::create([
+                    'vehicle_id' => $request->get('vehicle_id'),
+                    'meter' => $request->get('meter')
+                ]);
+
+                $response = [
+                    'vehicle' => ($diesel->vehicle->id != Vehicle::NO_VEHICLE) ? $diesel->vehicle->registration : '',
+                    'amount' => $diesel->amount,
+                    'action' => '-',
+                    'meter' => $diesel->meter,
+                    'date' => $diesel->created_at->format('Y-m-d'),
+                    'time' => $diesel->created_at->format('H:m'),
+                    'auth' => $diesel->user_id
+                ];
+
+                return json_encode($response);
             }
-
-            $diesel = Diesel::create([
-                'vehicle_id' => $request->get('vehicle_id'),
-                'amount' => $amount
-            ]);
-
-            return json_encode($diesel);
         }
     }
 
@@ -59,4 +89,48 @@ class DieselController extends Controller
         }
     }
 
+    private function calculateMeter()
+    {
+        $diesel = Diesel::all();
+
+        $totalDieselMeter = [];
+        $lastMeterAmount = 0;
+        foreach($diesel as $row){
+
+            if($lastMeterAmount == 0){
+                $lastMeterAmount = $row->meter;
+            }
+
+            if($lastMeterAmount != $row->meter){
+                $totalDieselMeter[] = $lastMeterAmount - $row->meter;
+            }
+
+        }
+
+        return array_sum($totalDieselMeter);
+    }
+
+    private function calculateDiesel()
+    {
+        $diesel = Diesel::all();
+
+        $totalDieselAdded = [];
+        foreach($diesel as $row){
+            if($row->amount > 0){
+                $totalDieselAdded[] = $row->amount;
+            }
+        }
+
+        return array_sum($totalDieselAdded);
+    }
+
+    private function calculateStock()
+    {
+        $subtracted = $this->calculateMeter();
+        $added = $this->calculateDiesel();
+
+        $stock = $added - $subtracted;
+
+        return $stock;
+    }
 }

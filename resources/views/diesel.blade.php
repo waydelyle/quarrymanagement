@@ -2,6 +2,10 @@
 
 @section('title', 'Diesel')
 
+@section('scripts')
+    <script src="{{ asset('js/diesel.js') }}"></script>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -10,10 +14,10 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <span class="glyphicon glyphicon-oil" aria-hidden="true"></span>
-                        Diesel
+                        Diesel @if( ! empty($stock)) {{ $stock }} Litres @endif
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="#" role="button">
-                                Manage Diesel
+                            <a class="btn btn-xs btn-default" href="/history" role="button">
+                                History
                             </a>
                             <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addDiesel">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -29,8 +33,12 @@
                     <table class="table table-hover" id="diesel-table">
                         <thead>
                         <tr>
+                            <th>Vehicle</th>
                             <th>Amount</th>
-                            <th>Date added</th>
+                            <th>Action</th>
+                            <th>Meter Reading</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -38,8 +46,12 @@
                         @if(!empty($diesel))
                             @foreach($diesel as $row)
                                 <tr>
-                                    <td>{{ $row->amount }}</td>
-                                    <td>{{ $row->created_at }}</td>
+                                    <td>@if($row->vehicle->registration != 'no-vehicle'){{ $row->vehicle->registration }}@endif</td>
+                                    <td>@if($row->amount > 0){{ $row->amount }}@endif</td>
+                                    <td>@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
+                                    <td>{{ $row->meter }}</td>
+                                    <td>{{ $row->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $row->created_at->format('H:m') }}</td>
                                     <td>
                                         <button type="button" class="btn btn-xs btn-danger delete-diesel diesel-{{ $row->id }}" id={{ $row->id }}>
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -53,11 +65,6 @@
 
                 </div>
                 <div class="panel-footer text-center">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            100 Litres
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -83,7 +90,7 @@
                             <label class="sr-only" for="amount">Diesel</label>
                             <div class="input-group">
                                 <div class="input-group-addon">Diesel</div>
-                                <input type="number" class="form-control" name="amount" id="diesel-amount" placeholder="Amount">
+                                <input type="number" class="form-control" name="amount" id="diesel-amount"  placeholder="Amount">
                                 <div class="input-group-addon">Litres</div>
                             </div>
                         </div>
@@ -118,8 +125,8 @@
                                         @endif
                                     </select>
                                 </div>
-                                <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
-                                <div class="input-group-addon"> Litres </div>
+                                <input type="number" class="form-control" name="meter" id="meter" value="@if( ! empty($meter)){{ $meter->meter }}@endif" placeholder="Meter Reading">
+                                <div class="input-group-addon"> Reading </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger" id="subtract-diesel-submit" data-dismiss="modal">Subtract</button>

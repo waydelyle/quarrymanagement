@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Oil;
+use App\OilType;
+use App\Vehicle;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -9,9 +11,11 @@ class OilController extends Controller
 
     public function show()
     {
-        $oil = Oil::all();
+        $oil = Oil::take(100)->get();
+        $oilTypes = OilType::all();
+        $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
 
-        return view('oil', ['oil' => $oil]);
+        return view('oil', ['oil' => $oil, 'oilTypes' => $oilTypes, 'vehicles' => $vehicles]);
     }
 
     public function add(Request $request)
@@ -19,11 +23,22 @@ class OilController extends Controller
         if($request->ajax()){
 
             $oil = Oil::create([
-                'vehicle_id' => $request->get('vehicle_id'),
+                'vehicle_id' => Vehicle::NO_VEHICLE,
+                'oil_type_id' => $request->get('oil_type_id'),
                 'amount' => $request->get('amount')
             ]);
 
-            return json_encode($oil);
+            $response = [
+                'vehicle' => ($oil->vehicle->id != Vehicle::NO_VEHICLE) ? $oil->vehicle->registration : '',
+                'amount' => $oil->amount,
+                'action' => '+',
+                'type' => $oil->type->label,
+                'date' => $oil->created_at->format('Y-m-d'),
+                'time' => $oil->created_at->format('H:m'),
+                'auth' => $oil->user_id
+            ];
+
+            return json_encode($response);
         }
     }
 
@@ -38,10 +53,21 @@ class OilController extends Controller
 
             $oil = Oil::create([
                 'vehicle_id' => $request->get('vehicle_id'),
+                'oil_type_id' => $request->get('oil_type_id'),
                 'amount' => $amount
             ]);
 
-            return json_encode($oil);
+            $response = [
+                'vehicle' => $oil->vehicle->registration,
+                'amount' => $oil->amount,
+                'action' => '-',
+                'type' => $oil->type->label,
+                'date' => $oil->created_at->format('Y-m-d'),
+                'time' => $oil->created_at->format('H:m'),
+                'auth' => $oil->user_id
+            ];
+
+            return json_encode($response);
         }
     }
 

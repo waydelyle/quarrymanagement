@@ -2,6 +2,10 @@
 
 @section('title', 'Vehicles')
 
+@section('scripts')
+    <script src="{{ asset('js/vehicles.js') }}"></script>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -12,7 +16,6 @@
                         <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
                         Vehicles
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="#" role="button">Manage Vehicles</a>
                             <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addVehicles">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>

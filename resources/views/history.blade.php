@@ -18,43 +18,61 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-
-                    <div class="pull-right">
-                        <form class="form-inline pull-right" id="add-oil-form">
-                            <div class="form-group">
-                                <label class="sr-only" for="amount">Date</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">From</div>
-                                    <input type="date" class="form-control" name="amount" id="amount" placeholder="Amount">
-                                </div>
-                                <div class="input-group">
-                                    <div class="input-group-addon">To</div>
-                                    <input type="date" class="form-control" name="amount" id="amount" placeholder="Amount">
-                                </div>
-                            </div>
-                            <a class="btn btn-default" href="#" role="button">View History</a>
-                        </form>
-                    </div>
-
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#diesel-chart">Diesel</a></li>
-                        <li><a data-toggle="tab" href="#oil-chart">Oil</a></li>
-                        <li><a data-toggle="tab" href="#vehicle-chart">Vehicles</a></li>
+                        <li class="active"><a data-toggle="tab" href="#diesel-history" id="view-diesel-history">Diesel</a></li>
+                        <li><a data-toggle="tab" href="#oil-history" id="view-oil-history">Oil</a></li>
                     </ul>
 
                     <div class="tab-content">
-                        <div id="diesel-chart" class="tab-pane fade in active">
-                            <div id="chart_div"></div>
+                        <div id="diesel-history" class="tab-pane fade in active">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Authorized by</th>
+                                </tr>
+                                </thead>
+                                <tbody id="diesel-history-table-body">
+                                </tbody>
+                            </table>
                         </div>
-                        <div id="oil-chart" class="tab-pane fade">
-                            <div id="chart_div"></div>
-                        </div>
-                        <div id="menu1" class="tab-pane fade">
+                        <div id="oil-history" class="tab-pane fade">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Authorized by</th>
+                                </tr>
+                                </thead>
+                                <tbody id="oil-history-table-body">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer text-center">
-
+                    <form class="form-inline" id="view-history-form">
+                        <div class="form-group">
+                            <label class="sr-only" for="amount">Date</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">From</div>
+                                <input type="date" class="form-control" name="fromDate" id="fromDate">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon">To</div>
+                                <input type="date" class="form-control" name="toDate" id="toDate">
+                            </div>
+                        </div>
+                        <button class="btn btn-default" type="submit" id="view-diesel-history" role="button">View Diesel History</button>
+                        <button class="btn btn-default" type="submit" id="view-oil-history" role="button">View Oil History</button>
+                    </form>
                 </div>
             </div>
         </div>

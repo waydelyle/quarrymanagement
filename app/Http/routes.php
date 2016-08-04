@@ -35,11 +35,11 @@ Route::post('vehicle/delete', 'VehicleController@delete');
 Route::get('stats', 'StatsController@show');
 Route::get('stats/diesel', 'StatsController@diesel');
 Route::get('stats/oil', 'StatsController@oil');
-Route::get('stats/vehicle', 'StatsController@vehicle');
 
 // HistoryController routes...
 Route::get('history', 'HistoryController@show');
-Route::get('history/diesel', 'StatsController@diesel');
+Route::post('history/diesel', 'HistoryController@diesel');
+Route::post('history/oil', 'HistoryController@oil');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

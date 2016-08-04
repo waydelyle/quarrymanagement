@@ -43,7 +43,7 @@
         @if( ! Auth::check())
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/stats"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats<span class="sr-only">(current)</span></a></li>
+                    <li><a href="/stats"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
                     <li><a href="/history"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
                     <li><a href="/diesel"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
                     <li><a href="/oil"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
@@ -144,6 +144,8 @@
 <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
 
 <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+
+<script src="{{ asset('js/main.js') }}"></script>
 
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 

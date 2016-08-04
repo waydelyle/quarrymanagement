@@ -1,4 +1,3 @@
-
 var Chart = {
     init: function(){
         google.charts.load('current', {packages: ['corechart', 'bar']});
@@ -40,9 +39,4 @@ $(document).ready(function($){
     $(document).on('click', '#loadOilChart', function(){
         Chart.get('oil');
     });
-
-    $(document).on('click', '#loadVehicleChart', function(){
-        Chart.get('vehicle');
-    });
-
 });

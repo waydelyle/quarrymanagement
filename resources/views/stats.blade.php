@@ -4,7 +4,7 @@
 
 @section('scripts')
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="{{ asset('/js/stats.js') }}"></script>
+    <script src="{{ asset('js/stats.js') }}"></script>
 @endsection
 
 @section('content')
@@ -23,7 +23,6 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a id="loadDieselChart" data-toggle="tab" href="#diesel-chart">Diesel</a></li>
                         <li><a id="loadOilChart" data-toggle="tab" href="#oil-chart">Oil</a></li>
-                        <li><a id="loadVehicleChart" data-toggle="tab" href="#vehicle-chart">Vehicles</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -31,9 +30,6 @@
                             <div id="displayChart"></div>
                         </div>
                         <div id="oil-chart" class="tab-pane fade">
-                            <div id="displayChart"></div>
-                        </div>
-                        <div id="vehicle-chart" class="tab-pane fade">
                             <div id="displayChart"></div>
                         </div>
                     </div>

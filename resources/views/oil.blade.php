@@ -2,6 +2,10 @@
 
 @section('title', 'Oil')
 
+@section('scripts')
+    <script src="{{ asset('js/oil.js') }}"></script>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -12,8 +16,8 @@
                         <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
                         Oil
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="#" role="button">
-                                Manage Oil
+                            <a class="btn btn-xs btn-default" href="/history" role="button">
+                               History
                             </a>
                             <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addOil">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -29,8 +33,11 @@
                     <table class="table table-hover" id="oil-table">
                         <thead>
                         <tr>
+                            <th>Vehicle</th>
+                            <th>Oil</th>
                             <th>Amount</th>
-                            <th>Date added</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -38,8 +45,11 @@
                         @if(!empty($oil))
                             @foreach($oil as $row)
                                 <tr>
+                                    <td>@if($row->vehicle->registration != 'no-vehicle'){{ $row->vehicle->registration }}@endif</td>
+                                    <td>{{ $row->type->label }}</td>
                                     <td>{{ $row->amount }}</td>
-                                    <td>{{ $row->created_at }}</td>
+                                    <td>{{ $row->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $row->created_at->format('H:m') }}</td>
                                     <td>
                                         <button type="button" class="btn btn-xs btn-danger delete-oil oil-{{ $row->id }}" id={{ $row->id }}>
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -53,11 +63,7 @@
 
                 </div>
                 <div class="panel-footer text-center">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            200 Litres
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -83,6 +89,17 @@
                                 <div class="input-group-addon">Oil</div>
                                 <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
                                 <div class="input-group-addon">Litres</div>
+                                <div class="input-group-addon">
+                                    <label for="type_id">
+                                        <select name="oil_type_id">
+                                            @if(!empty($oilTypes))
+                                                @foreach($oilTypes as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success" id="add-oil-submit" data-dismiss="modal">Add</button>
@@ -96,7 +113,7 @@
 
     <!-- Subtract Oil Modal -->
     <div class="modal fade text-center" id="subtractOil" role="dialog" data-backdrop="false">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -105,18 +122,30 @@
                 <div class="modal-body">
                     <form class="form-inline" id="subtract-oil-form">
                         <div class="form-group">
-                            <label class="sr-only" for="amount">Oil</label>
                             <div class="input-group">
-                                <div class="input-group-addon"> Vehicle
-                                    <select name="vehicle_id" class="vehicle-select">
-                                        @if(!empty($vehicles))
-                                            @foreach($vehicles as $vehicle)
-                                                <option class="vehicle-{{ $vehicle->id }}" value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
+                                <div class="input-group-addon">
+                                    <label for="vehicle_id">
+                                        <select name="vehicle_id" class="vehicle-select">
+                                            @if(!empty($vehicles))
+                                                @foreach($vehicles as $vehicle)
+                                                    <option class="vehicle-{{ $vehicle->id }}" value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </label>
                                 </div>
                                 <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
+                                <div class="input-group-addon">
+                                    <label for="type_id">
+                                        <select name="oil_type_id">
+                                            @if(!empty($oilTypes))
+                                                @foreach($oilTypes as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </label>
+                                </div>
                                 <div class="input-group-addon"> Litres </div>
                             </div>
                         </div>

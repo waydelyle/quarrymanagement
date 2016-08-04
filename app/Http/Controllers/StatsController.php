@@ -28,14 +28,16 @@ class StatsController extends Controller
         return json_encode($data);
     }
 
-    public function getData($chart, $daysToSubtract = 7)
+    private function getData($chart, $daysToSubtract = 7)
     {
         // build the transaction dates and amounts
         $dayMinusDays = 0;
 
+        $dates = [];
         $chartData = [];
 
-        while($dayMinusDays < $daysToSubtract){
+        while($dayMinusDays < $daysToSubtract)
+        {
             $date = Carbon::today()->subDay($dayMinusDays)->format('Y-m-d');
             $dates[] = $date;
             $chartData[$dayMinusDays] = [$date, 0];
@@ -47,18 +49,16 @@ class StatsController extends Controller
         {
             case 'diesel':
             $rows = Diesel::where('created_at', '>=', Carbon::today()->subDay($daysToSubtract))->get();
-                $chartData = $this->formatData($rows, $chartData, $dates);
                 break;
             case 'oil':
             $rows = Oil::where('created_at', '>=', Carbon::today()->subDay($daysToSubtract))->get();
-                $chartData = $this->formatData($rows, $chartData, $dates);
                 break;
-            case 'vehicle':
-            $oilRows = Oil::where('created_at', '>=', Carbon::today()->subDay($daysToSubtract))->get();
-            $dieselRows = Diesel::where('created_at', '>=', Carbon::today()->subDay($daysToSubtract))->get();
-            $chartData = $this->formatData($oilRows, $chartData, $dates);
+            default:
+                $rows = null;
                 break;
         }
+
+        $chartData = $this->formatData( $rows , $chartData , $dates);
 
 
         array_unshift($chartData, ['date', $chart]);
@@ -69,16 +69,17 @@ class StatsController extends Controller
     private function formatData( $rows , $chartData , $dates)
     {
 
-        foreach($rows as $row){
-            // find the position of this date in $transaction dates to add to the date total
-            $datePosition = array_search($row->created_at->format('Y-m-d'), $dates);
+        if( ! empty($rows) ){
+            foreach($rows as $row){
+                // find the position of this date in $transaction dates to add to the date total
+                $datePosition = array_search($row->created_at->format('Y-m-d'), $dates);
 
-            if($datePosition !== false){
-                $chartData[$datePosition][1] = $chartData[$datePosition][1] + (float) $row->amount;
+                if($datePosition !== false){
+                    $chartData[$datePosition][1] = $chartData[$datePosition][1] + (float) $row->amount;
+                }
             }
         }
 
         return $chartData;
     }
-
 }

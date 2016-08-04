@@ -18,6 +18,8 @@ class VerifyCsrfToken extends BaseVerifier
         'diesel/delete',
         'oil/add',
         'oil/subtract',
-        'oil/delete'
+        'oil/delete',
+        'history/diesel',
+        'history/oil'
     ];
 }

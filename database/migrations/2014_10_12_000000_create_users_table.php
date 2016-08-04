@@ -31,18 +31,19 @@ class CreateUsersTable extends Migration
 
         Schema::create('oil', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('amount', 5, 2);
+            $table->bigInteger('amount');
             $table->integer('oil_type_id')->references('id')->on('oil_types');
-            $table->integer('vehicle_id')->nullable();
+            $table->integer('vehicle_id')->references('id')->on('vehicles');
             $table->integer('user_id')->references('id')->on('users');
             $table->timestamps();
         });
 
         Schema::create('diesel', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('amount', 5, 2);
+            $table->bigInteger('meter');
+            $table->bigInteger('amount');
             $table->integer('user_id')->references('id')->on('users');
-            $table->integer('vehicle_id')->nullable();
+            $table->integer('vehicle_id')->references('id')->on('vehicles');;
             $table->timestamps();
         });
 

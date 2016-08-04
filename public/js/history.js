@@ -1,41 +1,87 @@
 
 var History = {
+    dieselHistoryTableBody: '#diesel-history-table-body',
+    oilHistoryTableBody: '#oil-history-table-body',
+
     init: function(){
-        google.charts.load('current', {packages: ['corechart', 'bar']});
     },
 
-    get: function( chartToGet ){
-        $.get( 'stats/' + chartToGet , function( data ) {
-            chartData = parse(data);
-            google.charts.setOnLoadCallback(drawDualX);
+    post: function( chartToGet, data ){
+        var self = this;
 
-            function drawDualX() {
-                var data = google.visualization.arrayToDataTable(chartData);
-
-                var chartAreaHeight = data.getNumberOfRows() * 30;
-
-                var chartHeight = chartAreaHeight + 500;
-                var chart = new google.visualization.BarChart(document.querySelector('#' + chartToGet + 'Chart'));
-
-                var options = {
-                    height: chartHeight,
-                    bars: 'verticle'
-                };
-                var material = new google.charts.Bar(document.getElementById(chartToGet + 'Chart'));
-                material.draw(data, options);
+        if(data == undefined){
+            data = {
+                fromDate: null,
+                toDate: null,
             }
+        }
+
+        $.post( 'history/' + chartToGet, data)
+        .done(function( data ) {
+            self.buildTable( parse(data) );
         });
-    }
+    },
+
+    buildTable: function ( data ){
+        var self = this;
+
+        $(self.dieselHistoryTableBody).empty();
+
+        for(var row in data){
+
+            var action = undefined;
+            var vehicle = '';
+            var type = '';
+
+            if(data[row].vehicle != 'no-vehicle'){
+                vehicle = data[row].vehicle;
+            }
+
+            if(data[row].type != false){
+                type = data[row].type;
+            }
+
+            if(data[row].action == '+'){
+                action = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>';
+            } else {
+                action = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
+            }
+
+            $(self.dieselHistoryTableBody).append(
+                '<tr>' +
+                '<td>' + vehicle + '</td>' +
+                '<td>' + data[row].amount + ' ' + type + '</td>' +
+                '<td>' + action + '</td>' +
+                '<td>' + data[row].date + '</td>' +
+                '<td>' + data[row].time + '</td>' +
+                '<td>' + data[row].auth + '</td>' +
+                '</tr>');
+        }
+    },
+
 };
 
 $(document).ready(function($){
 
-    Chart.init();
+    History.init();
+    History.post('diesel');
 
-    Chart.get('diesel');
+    $(document).on('click', '#view-diesel-history', function(){
+        History.post('diesel', { fromDate: $('#fromDate').val(), toDate: $('#toDate').val()});
 
-    $(document).on('click', '#loadOilChart', function(){
-        Chart.get('oil');
+        $('#view-oil-history').parent().removeClass('active');
+        $('#view-diesel-history').parent().addClass('active');
+
+        return false;
+    });
+
+    $(document).on('click', '#view-oil-history', function(){
+        History.post('oil', { fromDate: $('#fromDate').val(), toDate: $('#toDate').val()});
+
+        $('#view-oil-history').parent().addClass('active');
+        $('#view-diesel-history').parent().removeClass('active');
+
+        return false;
     });
 
 });
