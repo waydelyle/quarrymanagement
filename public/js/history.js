@@ -31,14 +31,9 @@ var History = {
 
             var action = undefined;
             var vehicle = '';
-            var type = '';
 
             if(data[row].vehicle != 'no-vehicle'){
                 vehicle = data[row].vehicle;
-            }
-
-            if(data[row].type != false){
-                type = data[row].type;
             }
 
             if(data[row].action == '+'){
@@ -50,7 +45,7 @@ var History = {
             $(self.dieselHistoryTableBody).append(
                 '<tr>' +
                 '<td>' + vehicle + '</td>' +
-                '<td>' + data[row].amount + ' ' + type + '</td>' +
+                '<td>' + data[row].amount + ' ' + data[row].type + '</td>' +
                 '<td>' + action + '</td>' +
                 '<td>' + data[row].date + '</td>' +
                 '<td>' + data[row].time + '</td>' +

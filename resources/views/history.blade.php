@@ -25,7 +25,7 @@
 
                     <div class="tab-content">
                         <div id="diesel-history" class="tab-pane fade in active">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="diesel-history-table">
                                 <thead>
                                 <tr>
                                     <th>Vehicle</th>
@@ -41,7 +41,7 @@
                             </table>
                         </div>
                         <div id="oil-history" class="tab-pane fade">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="oil-history-table">
                                 <thead>
                                 <tr>
                                     <th>Vehicle</th>

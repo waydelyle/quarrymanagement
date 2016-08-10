@@ -14,37 +14,41 @@
 // MainController routes...
 Route::get('/', 'MainController@show');
 
-// DieselController routes...
-Route::get('diesel', 'DieselController@show');
-Route::post('diesel/add', 'DieselController@add');
-Route::post('diesel/subtract', 'DieselController@subtract');
-Route::post('diesel/delete', 'DieselController@delete');
+Route::group(['middleware' => ['auth']], function () {
 
-// OilController routes...
-Route::get('oil', 'OilController@show');
-Route::post('oil/add', 'OilController@add');
-Route::post('oil/subtract', 'OilController@subtract');
-Route::post('oil/delete', 'OilController@delete');
+    // DieselController routes...
+    Route::get('diesel', 'DieselController@show');
+    Route::post('diesel/add', 'DieselController@add');
+    Route::post('diesel/subtract', 'DieselController@subtract');
+    Route::post('diesel/delete', 'DieselController@delete');
 
-// VehicleController routes...
-Route::get('vehicles', 'VehicleController@show');
-Route::post('vehicle/add', 'VehicleController@add');
-Route::post('vehicle/delete', 'VehicleController@delete');
+    // OilController routes...
+    Route::get('oil', 'OilController@show');
+    Route::post('oil/add', 'OilController@add');
+    Route::post('oil/subtract', 'OilController@subtract');
+    Route::post('oil/delete', 'OilController@delete');
 
-// StatsController routes...
-Route::get('stats', 'StatsController@show');
-Route::get('stats/diesel', 'StatsController@diesel');
-Route::get('stats/oil', 'StatsController@oil');
+    // VehicleController routes...
+    Route::get('vehicles', 'VehicleController@show');
+    Route::post('vehicle/add', 'VehicleController@add');
+    Route::post('vehicle/delete', 'VehicleController@delete');
 
-// HistoryController routes...
-Route::get('history', 'HistoryController@show');
-Route::post('history/diesel', 'HistoryController@diesel');
-Route::post('history/oil', 'HistoryController@oil');
+    // StatsController routes...
+    Route::get('stats', 'StatsController@show');
+    Route::get('stats/diesel', 'StatsController@diesel');
+    Route::get('stats/oil', 'StatsController@oil');
+
+    // HistoryController routes...
+    Route::get('history', 'HistoryController@show');
+    Route::post('history/diesel', 'HistoryController@diesel');
+    Route::post('history/oil', 'HistoryController@oil');
+
+});
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/logout', 'MainController@logout');
 
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');

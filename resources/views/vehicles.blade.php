@@ -27,7 +27,7 @@
                         <thead>
                         <tr>
                             <th>Registration</th>
-                            <th>Delete</th>
+                            {{--<th>Delete</th>--}}
                         </tr>
                         </thead>
                         <tbody id="vehicle-table-body">
@@ -35,11 +35,11 @@
                             @foreach($vehicles as $vehicle)
                                 <tr>
                                     <td>{{ $vehicle->registration }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-{{ $vehicle->id }}" id={{ $vehicle->id }}>
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--<button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-{{ $vehicle->id }}" id={{ $vehicle->id }}>--}}
+                                            {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
+                                        {{--</button>--}}
+                                    {{--</td>--}}
                                 </tr>
                             @endforeach
                         @endif

@@ -6,7 +6,8 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron">
+            <div class="jumbotron text-center">
+                <img class="img-rounded" src="{{ asset('/img/logo.png') }}" >
             </div>
         </div>
     </div>

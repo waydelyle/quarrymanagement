@@ -25,6 +25,9 @@
                             <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#subtractOil">
                                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                             </button>
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#oilTotals">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </button>
                         </span>
                     </h3>
                 </div>
@@ -35,21 +38,37 @@
                         <tr>
                             <th>Vehicle</th>
                             <th>Oil</th>
+                            <th>Action</th>
                             <th>Amount</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Auth</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Vehicle</th>
+                            <th>Oil</th>
+                            <th>Action</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Auth</th>
+                            <th>Delete</th>
+                        </tr>
+                        </tfoot>
                         <tbody id="oil-table-body">
                         @if(!empty($oil))
                             @foreach($oil as $row)
                                 <tr>
                                     <td>@if($row->vehicle->registration != 'no-vehicle'){{ $row->vehicle->registration }}@endif</td>
                                     <td>{{ $row->type->label }}</td>
+                                    <td>@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
                                     <td>{{ $row->amount }}</td>
                                     <td>{{ $row->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $row->created_at->format('H:m') }}</td>
+                                    <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
                                     <td>
                                         <button type="button" class="btn btn-xs btn-danger delete-oil oil-{{ $row->id }}" id={{ $row->id }}>
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -158,4 +177,35 @@
         </div>
     </div>
 
+    <!-- Oil Totals Modal -->
+    <div class="modal fade text-center" id="oilTotals" role="dialog" data-backdrop="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Oil Totals</h4>
+                </div>
+                <div class="modal-body">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type<th>
+                                    <th>Litres<th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach($calculatedOil as $label => $amount)
+                                        <tr>
+                                            <th>{{ $label }}<th>
+                                            <th class="text-info">{{ $amount }} Litres<th>
+                                        </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

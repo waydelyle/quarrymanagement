@@ -26,6 +26,7 @@
 <body>
 
 @yield('modals')
+
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -38,9 +39,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Wansley Quarries</a>
+            <a class="navbar-brand" href="/"> Wansley Quarries</a>
         </div>
         @if( ! Auth::check())
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right" role="form" action="/auth/login" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <input type="text" name="email" placeholder="Email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register">Register</button>
+                </form>
+            </div><!--/.navbar-collapse -->
+        @else
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/stats"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
@@ -49,20 +64,6 @@
                     <li><a href="/oil"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
                     <li><a href="/vehicles"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Vehicles</a></li>
                 </ul>
-                {{--<form class="navbar-form navbar-right" role="form" action="/auth/login" method="post">--}}
-                    {{--{{ csrf_field() }}--}}
-                    {{--<div class="form-group">--}}
-                        {{--<input type="text" name="email" placeholder="Email" class="form-control" required>--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--<input type="password" name="password" placeholder="Password" class="form-control" required>--}}
-                    {{--</div>--}}
-                    {{--<button type="submit" class="btn btn-success">Sign in</button>--}}
-                    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register">Register</button>--}}
-                {{--</form>--}}
-            </div><!--/.navbar-collapse -->
-        @else
-            <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right" role="form">
                     <a href="/auth/logout" type="button" class="btn btn-primary" >Sign out</a>
                 </form>
@@ -76,7 +77,7 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="page-header">
         <div class="container">
-            <h1>
+            <h1 class="text-center">
                 Quarry Management System
                 <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true"></span>
             </h1>

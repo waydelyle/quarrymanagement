@@ -15,7 +15,7 @@ class HistoryController extends Controller
 
     public function diesel(Request $request)
     {
-        $fromDate = Carbon::today()->subMonth()->format('Y-m-d');
+        $fromDate = Carbon::yesterday()->format('Y-m-d');
         if($request->has('fromDate')){
             $fromDate = Carbon::createFromFormat('Y-m-d', $request->get('fromDate'));
         }
@@ -51,16 +51,6 @@ class HistoryController extends Controller
         return json_encode($results);
     }
 
-    private function formatDate($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
-    }
-
-    private function formatTime($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('H:i');
-    }
-
     private function formatData($modelData)
     {
         $results = [];
@@ -68,11 +58,11 @@ class HistoryController extends Controller
             $results[] = [
                 'vehicle' => $data->vehicle->registration,
                 'action' => ($data->amount > 0) ? '+' : '-',
-                'type' => (isset($data->oil)) ? $data->oil->label : false,
+                'type' => (isset($data->type)) ? ' - ' . $data->type->label : '',
                 'amount' => $data->amount,
                 'date' => $data->created_at->format('Y-m-d'),
                 'time' => $data->created_at->format('Y-m-d'),
-                'auth' => $data->user_id
+                'auth' => $data->user->name . ' ' . $data->user->surname
             ];
         }
 

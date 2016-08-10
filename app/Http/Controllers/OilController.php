@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
 use App\Oil;
 use App\OilType;
 use App\Vehicle;
@@ -14,8 +15,9 @@ class OilController extends Controller
         $oil = Oil::take(100)->get();
         $oilTypes = OilType::all();
         $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
+        $calculatedOil = $this->calculate();
 
-        return view('oil', ['oil' => $oil, 'oilTypes' => $oilTypes, 'vehicles' => $vehicles]);
+        return view('oil', ['oil' => $oil, 'oilTypes' => $oilTypes, 'vehicles' => $vehicles, 'calculatedOil' => $calculatedOil]);
     }
 
     public function add(Request $request)
@@ -24,6 +26,7 @@ class OilController extends Controller
 
             $oil = Oil::create([
                 'vehicle_id' => Vehicle::NO_VEHICLE,
+                'user_id' => Auth::user()->id,
                 'oil_type_id' => $request->get('oil_type_id'),
                 'amount' => $request->get('amount')
             ]);
@@ -35,7 +38,7 @@ class OilController extends Controller
                 'type' => $oil->type->label,
                 'date' => $oil->created_at->format('Y-m-d'),
                 'time' => $oil->created_at->format('H:m'),
-                'auth' => $oil->user_id
+                'auth' => $oil->user->name . ' ' . $oil->user->surname
             ];
 
             return json_encode($response);
@@ -54,6 +57,7 @@ class OilController extends Controller
             $oil = Oil::create([
                 'vehicle_id' => $request->get('vehicle_id'),
                 'oil_type_id' => $request->get('oil_type_id'),
+                'user_id' => Auth::user()->id,
                 'amount' => $amount
             ]);
 
@@ -64,7 +68,7 @@ class OilController extends Controller
                 'type' => $oil->type->label,
                 'date' => $oil->created_at->format('Y-m-d'),
                 'time' => $oil->created_at->format('H:m'),
-                'auth' => $oil->user_id
+                'auth' => $oil->user->name . ' ' . $oil->user->surname
             ];
 
             return json_encode($response);
@@ -85,4 +89,24 @@ class OilController extends Controller
         }
     }
 
+    private function calculate()
+    {
+        $oil = Oil::all();
+        $oilTypes = OilType::all();
+
+        $totalOil = [];
+        $totalOilTypes = [];
+
+        foreach ($oilTypes as $type){
+            $totalOil[$type->label] = 0;
+        }
+
+        if( ! empty($oil) ){
+            foreach($oil as $row){
+                $totalOil[$row->type->label] = $totalOil[$row->type->label] + $row->amount;
+            }
+        }
+
+        return $totalOil;
+    }
 }

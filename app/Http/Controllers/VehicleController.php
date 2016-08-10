@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
 use App\Vehicle;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class VehicleController extends Controller
         if($request->ajax()){
 
             $vehicle = Vehicle::create([
-                'registration' => $request->get('registration')
+                'registration' => $request->get('registration'),
+                'user_id' => Auth::user()->id,
             ]);
 
             return json_encode($vehicle);

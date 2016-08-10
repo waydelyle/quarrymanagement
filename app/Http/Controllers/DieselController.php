@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
 use App\Diesel;
 use App\Http\Requests;
 use App\Vehicle;
@@ -14,7 +15,7 @@ class DieselController extends Controller
         $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
         $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
-        $stock = $this->calculateStock();
+        $stock = $this->calculate();
 
         return view('diesel', ['diesel' => $diesel, 'vehicles' => $vehicles, 'meter' => $meter, 'stock' => $stock]);
     }
@@ -28,6 +29,7 @@ class DieselController extends Controller
             if( ! empty($meter)){
                 $diesel = Diesel::create([
                     'vehicle_id' => Vehicle::NO_VEHICLE,
+                    'user_id' => Auth::user()->id,
                     'amount' => $request->get('amount'),
                     'meter' => $meter->meter
                 ]);
@@ -39,7 +41,7 @@ class DieselController extends Controller
                     'meter' => $diesel->meter,
                     'date' => $diesel->created_at->format('Y-m-d'),
                     'time' => $diesel->created_at->format('H:m'),
-                    'auth' => $diesel->user_id
+                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname
                 ];
 
                 return json_encode($response);
@@ -55,8 +57,12 @@ class DieselController extends Controller
             $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
             if(empty($meter) || $meter->meter <  $request->get('meter')){
+                $amount = $meter->meter - $request->get('meter');
+
                 $diesel = Diesel::create([
                     'vehicle_id' => $request->get('vehicle_id'),
+                    'user_id' => Auth::user()->id,
+                    'amount' =>  $amount,
                     'meter' => $request->get('meter')
                 ]);
 
@@ -67,7 +73,7 @@ class DieselController extends Controller
                     'meter' => $diesel->meter,
                     'date' => $diesel->created_at->format('Y-m-d'),
                     'time' => $diesel->created_at->format('H:m'),
-                    'auth' => $diesel->user_id
+                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname
                 ];
 
                 return json_encode($response);
@@ -110,15 +116,13 @@ class DieselController extends Controller
         return array_sum($totalDieselMeter);
     }
 
-    private function calculateDiesel()
+    private function calculate()
     {
         $diesel = Diesel::all();
 
         $totalDieselAdded = [];
         foreach($diesel as $row){
-            if($row->amount > 0){
-                $totalDieselAdded[] = $row->amount;
-            }
+            $totalDieselAdded[] = $row->amount;
         }
 
         return array_sum($totalDieselAdded);
@@ -131,6 +135,6 @@ class DieselController extends Controller
 
         $stock = $added - $subtracted;
 
-        return $stock;
+        return $this->calculateDiesel();
     }
 }
