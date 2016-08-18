@@ -1,50 +1,71 @@
-var    addVehicleForm = $('#add-vehicle-form'),
-       deleteVehicleForm = $('#delete-vehicle-form');
 
-$(document).on('click', '#add-vehicle-submit', function(){
+var vehicle = {
 
-    $.post( 'vehicle/add', addVehicleForm.serialize())
-        .done(function( data ) {
-            data = parse(data);
-            var newRow = '<tr><td>' + data.registration + '</td></tr>';
+    input: $('#registration-text'),
 
-            // '<td><button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-' + data.id + '" id="' + data.id +'">' +
-            // '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-            // '</span>' +
-            // '</button>' +
-            // '</td>
+    table: $('#vehicle-table-body'),
 
-            var newSelect = '<option value="' + data.id +'" class="vehicle-' + data.id + '">' + data.registration + '</option>'
+    addForm: $('#add-vehicle-form'),
 
-            $('#vehicle-table-body').append(newRow);
-            $('.vehicle-table-body').append(newRow);
-            $('.vehicle-select').append(newSelect);
-            $('#registration-text').val('');
-        });
+    addButton: '#add-vehicle-submit',
+
+    removeButton: '.delete-oil',
+
+    response:{},
+
+    add: function(){
+        var self = this,
+            row = '';
+
+        self.response = ajax.post('vehicle/add', self.addForm.serialize());
+
+        row = self.newRow( self.response );
+
+        self.addRow( row );
+
+        self.clearInput();
+    },
+
+    remove: function( id ){
+        var self = this;
+
+        self.response = $.post('vehicle/delete', {'id': id});
+
+        $( '.oil-' + id ).closest('tr').remove();
+    },
+
+    newRow: function ( data ){
+        var self = this;
+
+        return '<tr><td>' + data.registration + '</td></tr>';
+    },
+
+    addRow: function( row ) {
+        var self = this;
+
+        self.table.prepend(row);
+    },
+
+    clearInput: function() {
+        var self = this;
+
+        self.input.val('');
+    }
+};
+
+$(document).on('click', vehicle.addButton, function(){
+
+    vehicle.add();
 
     return false;
 });
-//
-// $(document).on('click', '#delete-vehicle-submit', function(){
-//     $.post( 'vehicle/delete', deleteVehicleForm.serialize())
-//         .done(function( data ) {
-//         });
-//
-//     return false;
-// });
 
-// $(document).on('click', '.delete-vehicle', function(){
-//
-//     var id = this.id;
-//
-//     $.post( 'vehicle/delete', {'id': id})
-//         .done(function( data ) {
-//             $( '.vehicle-' + id ).closest('tr').remove();
-//             $( '.vehicle-' + id ).closest('option').remove();
-//         });
-//
-//     return false;
-// });
+$(document).on('click', vehicle.removeButton, function(){
+
+    vehicle.remove(this.id);
+
+    return false;
+});
 
 $(document).ready(function(){
     $('#vehicle-table').DataTable();

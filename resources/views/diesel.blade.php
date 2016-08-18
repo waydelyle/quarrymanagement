@@ -12,24 +12,25 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">
+                    <h3 class="panel-title pull-left">
                         <span class="glyphicon glyphicon-oil" aria-hidden="true"></span>
                         Diesel
-                        <span class="pull-right">
-                            <a class="btn btn-default" href="{{ url('history') }}" role="button">
-                                History
-                            </a>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiesel">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                            </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractDiesel">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
-                            </button>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dieselTotals">
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
-                            </button>
-                        </span>
                     </h3>
+
+                    <div class="text-center">
+                        <a class="btn btn-default" href="{{ url('history') }}" role="button">
+                            History
+                        </a>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiesel">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                        </button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractDiesel">
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
+                        </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dieselTotals">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
+                        </button>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
@@ -47,6 +48,18 @@
                             <th>Delete</th>
                         </tr>
                         </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Vehicle</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                            <th>Meter Reading</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Auth</th>
+                            <th>Delete</th>
+                        </tr>
+                        </tfoot>
                         <tbody id="diesel-table-body">
                         @if(!empty($diesel))
                             @foreach($diesel as $row)

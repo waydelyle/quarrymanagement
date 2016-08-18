@@ -12,24 +12,25 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">
+                    <h3 class="panel-title pull-left">
                         <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
                         Oil
-                        <span class="pull-right">
-                            <a class="btn btn-default" href="{{ url('history') }}" role="button">
-                               History
-                            </a>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOil">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                            </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractOil">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
-                            </button>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#oilTotals">
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
-                            </button>
-                        </span>
                     </h3>
+
+                    <div class="text-center">
+                        <a class="btn btn-default" href="{{ url('history') }}" role="button">
+                            History
+                        </a>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOil">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                        </button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractOil">
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
+                        </button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#oilTotals">
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
+                        </button>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">

@@ -9,6 +9,7 @@
     <title>Wansley QMS - @yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
@@ -149,12 +150,11 @@
 
 <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
 
-<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
 @yield('scripts')
 
-<script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

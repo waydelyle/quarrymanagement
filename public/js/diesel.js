@@ -1,78 +1,110 @@
-var addDieselForm = $('#add-diesel-form'),
-    subtractDieselForm = $('#subtract-diesel-form');
 
-$(document).on('click', '#add-diesel-submit', function(){
-    $.post( 'diesel/add', addDieselForm.serialize())
-        .done(function( data ) {
-            data = parse(data);
+var diesel = {
 
-            if(data.action == '+'){
-                data.action = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>';
-            } else {
-                data.action = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
-            }
+    input: $('#diesel-amount'),
 
-            var newRow = '<tr>' +
-                '<td>' + data.vehicle + '</td>' +
-                '<td>' + data.amount + '</td>' +
-                '<td>' + data.action + '</td>' +
-                '<td>' + data.meter + '</td>' +
-                '<td>' + data.date + '</td>' +
-                '<td>' + data.time + '</td>' +
-                '<td>' + data.auth + '</td>' +
-                '<td><button type="button" class="btn btn-xs btn-danger delete-diesel diesel-' + data.id + '" id="' + data.id +'">' +
-                '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-                '</span>' +
-                '</button>' +
-                '</td></tr>';
+    table: $('#diesel-table-body'),
 
-            $('#diesel-table-body').append(newRow);
-            $('#diesel-amount').val('');
-        });
+    addForm: $('#add-diesel-form'),
+
+    subtractForm: $('#subtract-diesel-form'),
+
+    addButton: '#add-diesel-submit',
+
+    subtractButton: '#subtract-diesel-submit',
+
+    removeButton: '.delete-diesel',
+
+    response:{},
+
+    add: function(){
+        var self = this,
+            row = '';
+
+        self.response = ajax.post('diesel/add', self.addForm.serialize());
+
+        row = self.newRow( self.response );
+
+        self.addRow( row );
+
+        self.clearInput();
+    },
+
+    subtract: function(){
+        var self = this,
+            row = '';
+
+        self.response = ajax.post('diesel/subtract', self.subtractForm.serialize());
+
+        row = self.newRow( self.response );
+
+        self.addRow( row );
+
+        self.clearInput();
+    },
+
+    remove: function( id ){
+        var self = this;
+
+        self.response = $.post('diesel/delete', {'id': id});
+
+        $( '.diesel-' + id ).closest('tr').remove();
+    },
+
+    newRow: function ( data ){
+        var self = this;
+
+        if(data.action == '+'){
+            data.action = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>';
+        } else {
+            data.action = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
+        }
+
+        return '<tr>' +
+            '<td>' + data.vehicle + '</td>' +
+            '<td>' + data.amount + '</td>' +
+            '<td>' + data.action + '</td>' +
+            '<td>' + data.meter + '</td>' +
+            '<td>' + data.date + '</td>' +
+            '<td>' + data.time + '</td>' +
+            '<td>' + data.auth + '</td>' +
+            '<td><button type="button" class="btn btn-xs btn-danger delete-diesel diesel-' + data.id + '" id="' + data.id +'">' +
+            '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
+            '</span>' +
+            '</button>' +
+            '</td></tr>';
+    },
+
+    addRow: function( row ) {
+        var self = this;
+
+        self.table.prepend(row);
+    },
+
+    clearInput: function() {
+        var self = this;
+
+        self.input.val('');
+    }
+};
+
+$(document).on('click', diesel.addButton, function(){
+
+    diesel.add();
 
     return false;
 });
 
-$(document).on('click', '#subtract-diesel-submit', function(){
-    $.post( 'diesel/subtract', subtractDieselForm.serialize())
-        .done(function( data ) {
-            data = parse(data);
+$(document).on('click', diesel.subtractButton, function(){
 
-            if(data.action == '+'){
-                data.action = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>';
-            } else {
-                data.action = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
-            }
-
-            var newRow = '<tr>' +
-                '<td>' + data.vehicle + '</td>' +
-                '<td>' + data.amount + '</td>' +
-                '<td>' + data.action + '</td>' +
-                '<td>' + data.meter + '</td>' +
-                '<td>' + data.date + '</td>' +
-                '<td>' + data.time + '</td>' +
-                '<td>' + data.auth + '</td>' +
-                '<td><button type="button" class="btn btn-xs btn-danger delete-diesel diesel-' + data.id + '" id="' + data.id +'">' +
-                '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-                '</span>' +
-                '</button>' +
-                '</td></tr>';
-
-            $('#diesel-table-body').append(newRow);
-            $('#diesel-amount').val('');
-        });
+    diesel.subtract();
 
     return false;
 });
 
-$(document).on('click', '.delete-diesel', function(){
+$(document).on('click', diesel.removeButton, function(){
 
-    var id = this.id;
-
-    $.post( 'diesel/delete', {'id': id})
-        .done(function( data ) {
-            $( '.diesel-' + id ).closest('tr').remove();
-        });
+    diesel.remove(this.id);
 
     return false;
 });
@@ -84,8 +116,10 @@ $(document).ready(function(){
         initComplete: function () {
             this.api().columns().every( function () {
 
-                if( i == 3 || i == 0 || i == 6 ){
+                console.log(i);
 
+                if( i == 3 || i == 6 ){
+                    console.log('here')
                     var column = this;
                     var select = $('<select><option value=""></option></select>')
                         .appendTo( $(column.footer()).empty() )

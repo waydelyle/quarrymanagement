@@ -12,15 +12,16 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">
+                    <h3 class="panel-title pull-left">
                         <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
                         Vehicles
-                        <span class="pull-right">
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addVehicles">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                            </button>
-                        </span>
                     </h3>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addVehicles">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                        </button>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
