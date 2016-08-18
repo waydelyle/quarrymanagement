@@ -16,7 +16,7 @@
                         <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
                         Oil
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="{{ url('history') }}" role="button">
+                            <a class="btn btn-default" href="{{ url('history') }}" role="button">
                                History
                             </a>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOil">
