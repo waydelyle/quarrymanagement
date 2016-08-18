@@ -16,20 +16,21 @@
                         <span class="glyphicon glyphicon-oil" aria-hidden="true"></span>
                         Diesel
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="{{ url('history') }}" role="button">
+                            <a class="btn btn-default" href="{{ url('history') }}" role="button">
                                 History
                             </a>
-                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addDiesel">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiesel">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                             </button>
-                            <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#subtractDiesel">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractDiesel">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
                             </button>
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#dieselTotals">
-                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dieselTotals">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
                             </button>
                         </span>
                     </h3>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
 

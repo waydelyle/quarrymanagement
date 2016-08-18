@@ -16,11 +16,12 @@
                         <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
                         Vehicles
                         <span class="pull-right">
-                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addVehicles">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addVehicles">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
                             </button>
                         </span>
                     </h3>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
                     <table class="table table-hover">
