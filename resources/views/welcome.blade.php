@@ -2,12 +2,20 @@
 
 @section('title', 'Home')
 
+@section('styles')
+    <style>
+        .img-responsive {
+            margin: 0 auto;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron text-center">
-                <img class="img-rounded" src="{{ asset('/img/logo.png') }}" >
+                <img class="img-rounded img-responsive" src="{{ asset('/img/logo.png') }}" >
             </div>
         </div>
     </div>

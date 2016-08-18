@@ -61,7 +61,7 @@ class HistoryController extends Controller
                 'type' => (isset($data->type)) ? ' - ' . $data->type->label : '',
                 'amount' => $data->amount,
                 'date' => $data->created_at->format('Y-m-d'),
-                'time' => $data->created_at->format('Y-m-d'),
+                'time' => $data->created_at->format('H:m'),
                 'auth' => $data->user->name . ' ' . $data->user->surname
             ];
         }

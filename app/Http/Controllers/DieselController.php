@@ -57,7 +57,12 @@ class DieselController extends Controller
             $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
             if(empty($meter) || $meter->meter <  $request->get('meter')){
-                $amount = $meter->meter - $request->get('meter');
+
+                if(empty($meter)){
+                    $amount = 0;
+                } else {
+                    $amount = $meter->meter - $request->get('meter');
+                }
 
                 $diesel = Diesel::create([
                     'vehicle_id' => $request->get('vehicle_id'),

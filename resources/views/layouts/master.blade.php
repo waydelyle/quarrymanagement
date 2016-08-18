@@ -18,6 +18,9 @@
             padding-bottom: 20px;
         }
     </style>
+
+    @yield('styles')
+
     <link rel="stylesheet" href="{{ asset('css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
@@ -39,11 +42,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"> Wansley Quarries</a>
+            <a class="navbar-brand" href="{{ url('/') }}"> Wansley Quarries</a>
         </div>
         @if( ! Auth::check())
             <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right" role="form" action="/auth/login" method="post">
+                <form class="navbar-form navbar-right" role="form" action="{{ url('auth/login') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <input type="text" name="email" placeholder="Email" class="form-control" required>
@@ -58,14 +61,14 @@
         @else
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/stats"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
-                    <li><a href="/history"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
-                    <li><a href="/diesel"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
-                    <li><a href="/oil"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
-                    <li><a href="/vehicles"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Vehicles</a></li>
+                    <li><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
+                    <li><a href="{{ url('history') }}"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
+                    <li><a href="{{ url('diesel') }}"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
+                    <li><a href="{{ url('oil') }}"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
+                    <li><a href="{{ url('vehicles') }}"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Vehicles</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" role="form">
-                    <a href="/auth/logout" type="button" class="btn btn-primary" >Sign out</a>
+                    <a href="{{ url('auth/logout') }}" type="button" class="btn btn-primary" >Sign out</a>
                 </form>
             </div><!--/.navbar-collapse -->
         @endif
@@ -104,7 +107,7 @@
                     <h4 class="modal-title" id="myModalLabel">Quarry Manager Registration</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/auth/register">
+                    <form method="POST" action="{{ url('auth/register') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group">

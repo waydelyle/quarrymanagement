@@ -16,7 +16,7 @@
                         <span class="glyphicon glyphicon-oil" aria-hidden="true"></span>
                         Diesel
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="/history" role="button">
+                            <a class="btn btn-xs btn-default" href="{{ url('history') }}" role="button">
                                 History
                             </a>
                             <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addDiesel">
@@ -46,18 +46,6 @@
                             <th>Delete</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Vehicle</th>
-                            <th>Amount</th>
-                            <th>Action</th>
-                            <th>Meter Reading</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Auth</th>
-                            <th>Delete</th>
-                        </tr>
-                        </tfoot>
                         <tbody id="diesel-table-body">
                         @if(!empty($diesel))
                             @foreach($diesel as $row)
@@ -70,7 +58,7 @@
                                     <td>{{ $row->created_at->format('H:m') }}</td>
                                     <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-danger delete-diesel diesel-{{ $row->id }}" id={{ $row->id }}>
+                                        <button type="button" class="btn btn-xs btn-danger disabled">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </td>

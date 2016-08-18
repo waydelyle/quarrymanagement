@@ -16,7 +16,7 @@
                         <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
                         Oil
                         <span class="pull-right">
-                            <a class="btn btn-xs btn-default" href="/history" role="button">
+                            <a class="btn btn-xs btn-default" href="{{ url('history') }}" role="button">
                                History
                             </a>
                             <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addOil">
@@ -70,7 +70,7 @@
                                     <td>{{ $row->created_at->format('H:m') }}</td>
                                     <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-danger delete-oil oil-{{ $row->id }}" id={{ $row->id }}>
+                                        <button type="button" class="btn btn-xs btn-danger disabled">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </td>

@@ -13,6 +13,8 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         'vehicle/delete',
+        'auth/login',
+        'auth/register',
         'diesel/add',
         'diesel/subtract',
         'diesel/delete',
