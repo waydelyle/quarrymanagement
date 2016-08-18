@@ -19,11 +19,13 @@ var vehicle = {
 
         self.response = ajax.post('vehicle/add', self.addForm.serialize());
 
-        row = self.newRow( self.response );
+        if(self.response !== false) {
+            row = self.newRow(self.response);
 
-        self.addRow( row );
+            self.addRow(row);
 
-        self.clearInput();
+            self.clearInput();
+        }
     },
 
     remove: function( id ){

@@ -20,6 +20,45 @@ class DieselController extends Controller
         return view('diesel', ['diesel' => $diesel, 'vehicles' => $vehicles, 'meter' => $meter, 'stock' => $stock]);
     }
 
+    public function update( $id , Request $request)
+    {
+        if( empty($id) ){
+            return redirect('/oil');
+        }
+
+        $diesel = Diesel::find($id);
+        $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
+
+        if(empty($diesel)){
+            return redirect('/diesel');
+        }
+
+        if($request->has('amount') || $request->has('meter') ){
+
+            $oldDiesel = Diesel::where('id', '<', $id)->first();
+
+            if($request->has('meter'))
+            {
+                $amount = $oldDiesel->meter - $request->get('meter');
+                $diesel->amount = $amount;
+                $diesel->meter = $request->get('meter');
+
+                $diesel->vehicle_id = $request->get('vehicle_id');
+
+            } else {
+                $oldDiesel = Diesel::where('id', '<', $id)->first();
+
+                $diesel->amount = $request->get('amount');
+                $diesel->meter = $oldDiesel->meter;
+            }
+
+            $diesel->update();
+            return redirect('/diesel');
+        }
+
+        return view('diesel.update', ['diesel' => $diesel, 'vehicles' => $vehicles]);
+    }
+
     public function add(Request $request)
     {
         if($request->ajax()){

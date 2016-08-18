@@ -29,7 +29,7 @@
                         <thead>
                         <tr>
                             <th>Registration</th>
-                            {{--<th>Delete</th>--}}
+                            <th>Manage</th>
                         </tr>
                         </thead>
                         <tbody id="vehicle-table-body">
@@ -37,11 +37,16 @@
                             @foreach($vehicles as $vehicle)
                                 <tr>
                                     <td>{{ $vehicle->registration }}</td>
-                                    {{--<td>--}}
-                                        {{--<button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-{{ $vehicle->id }}" id={{ $vehicle->id }}>--}}
-                                            {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
-                                        {{--</button>--}}
-                                    {{--</td>--}}
+                                    <td>
+                                        @if(Auth::user()->admin)
+                                            <a type="button" class="btn btn-xs btn-success edit-vehicle vehicle-{{ $vehicle->id }}" href="{{ url('vehicle/update/' . $vehicle->id) }}">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                                            </a>
+                                            <button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-{{ $vehicle->id }}" id={{ $vehicle->id }}>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+                                            </button>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif

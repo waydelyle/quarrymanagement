@@ -23,11 +23,13 @@ var diesel = {
 
         self.response = ajax.post('diesel/add', self.addForm.serialize());
 
-        row = self.newRow( self.response );
+        if(self.response !== false) {
+            row = self.newRow(self.response);
 
-        self.addRow( row );
+            self.addRow(row);
 
-        self.clearInput();
+            self.clearInput();
+        }
     },
 
     subtract: function(){
@@ -36,11 +38,13 @@ var diesel = {
 
         self.response = ajax.post('diesel/subtract', self.subtractForm.serialize());
 
-        row = self.newRow( self.response );
+        if(self.response !== false) {
+            row = self.newRow(self.response);
 
-        self.addRow( row );
+            self.addRow(row);
 
-        self.clearInput();
+            self.clearInput();
+        }
     },
 
     remove: function( id ){
@@ -48,7 +52,9 @@ var diesel = {
 
         self.response = $.post('diesel/delete', {'id': id});
 
-        $( '.diesel-' + id ).closest('tr').remove();
+        if(self.response !== false) {
+            $('.diesel-' + id).closest('tr').remove();
+        }
     },
 
     newRow: function ( data ){
@@ -116,10 +122,7 @@ $(document).ready(function(){
         initComplete: function () {
             this.api().columns().every( function () {
 
-                console.log(i);
-
                 if( i == 3 || i == 6 ){
-                    console.log('here')
                     var column = this;
                     var select = $('<select><option value=""></option></select>')
                         .appendTo( $(column.footer()).empty() )

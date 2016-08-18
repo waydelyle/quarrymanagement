@@ -149,7 +149,6 @@
         </div>
     </div>
 
-
     <!-- Add Vehicle Modal -->
     <div class="modal fade text-center" id="addVehicles" role="dialog">
         <div class="modal-dialog">

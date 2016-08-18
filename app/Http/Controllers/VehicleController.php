@@ -2,8 +2,8 @@
 
 use Auth;
 use App\Vehicle;
-use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class VehicleController extends Controller
 {
@@ -13,6 +13,27 @@ class VehicleController extends Controller
         $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
 
         return view('vehicles', ['vehicles' => $vehicles]);
+    }
+
+    public function update( $id , Request $request)
+    {
+        if( empty($id) ){
+            return redirect('/vehicles');
+        }
+
+        $vehicle = Vehicle::find($id);
+
+        if(empty($vehicle)){
+            return redirect('/vehicles');
+        }
+
+        if($request->has('registration')){
+            $vehicle->registration = $request->get('registration');
+            $vehicle->update();
+            return redirect('/vehicles');
+        }
+
+        return view('vehicle.update', ['vehicle' => $vehicle]);
     }
 
     public function add(Request $request)

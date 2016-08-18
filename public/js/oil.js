@@ -23,11 +23,14 @@ var oil = {
 
         self.response = ajax.post('oil/add', self.addForm.serialize());
 
-        row = self.newRow( self.response );
+        if(self.response !== false){
+            row = self.newRow( self.response );
 
-        self.addRow( row );
+            self.addRow( row );
 
-        self.clearInput();
+            self.clearInput();
+        }
+
     },
 
     subtract: function(){
@@ -36,11 +39,13 @@ var oil = {
 
         self.response = ajax.post('oil/subtract', self.subtractForm.serialize());
 
-        row = self.newRow( self.response );
+        if(self.response !== false) {
+            row = self.newRow(self.response);
 
-        self.addRow( row );
+            self.addRow(row);
 
-        self.clearInput();
+            self.clearInput();
+        }
     },
 
     remove: function( id ){
@@ -48,7 +53,9 @@ var oil = {
 
         self.response = $.post('oil/delete', {'id': id});
 
-        $( '.oil-' + id ).closest('tr').remove();
+        if(self.response !== false) {
+            $('.oil-' + id).closest('tr').remove();
+        }
     },
 
     newRow: function ( data ){

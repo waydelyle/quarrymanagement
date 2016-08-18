@@ -20,6 +20,36 @@ class OilController extends Controller
         return view('oil', ['oil' => $oil, 'oilTypes' => $oilTypes, 'vehicles' => $vehicles, 'calculatedOil' => $calculatedOil]);
     }
 
+    public function update( $id , Request $request)
+    {
+        if( empty($id) ){
+            return redirect('/oil');
+        }
+
+        $oil = Oil::find($id);
+        $oilTypes = OilType::all();
+        $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
+
+        if(empty($oil)){
+            return redirect('/oil');
+        }
+
+        if($request->has('amount')){
+            $oil->amount = $request->get('amount');
+
+            if($request->has('vehicle_id'))
+            {
+                $oil->vehicle_id = $request->get('vehicle_id');
+            }
+
+            $oil->oil_type_id = $request->get('oil_type_id');
+            $oil->update();
+            return redirect('/oil');
+        }
+
+        return view('oil.update', ['oil' => $oil, 'oilTypes' => $oilTypes, 'vehicles' => $vehicles]);
+    }
+
     public function add(Request $request)
     {
         if($request->ajax()){

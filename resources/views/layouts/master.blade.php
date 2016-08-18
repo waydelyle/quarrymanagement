@@ -146,6 +146,24 @@
 
 @endif
 
+<!-- Error Modal -->
+<div class="modal fade text-center" id="error" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="code"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger" id="message"></p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="submit" class="btn btn-danger" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
 
 <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>

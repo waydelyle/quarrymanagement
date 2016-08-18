@@ -45,7 +45,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Auth</th>
-                            <th>Delete</th>
+                            <th>Manage</th>
                         </tr>
                         </thead>
                         <tfoot>
@@ -57,7 +57,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Auth</th>
-                            <th>Delete</th>
+                            <th>Manage</th>
                         </tr>
                         </tfoot>
                         <tbody id="diesel-table-body">
@@ -72,9 +72,18 @@
                                     <td>{{ $row->created_at->format('H:m') }}</td>
                                     <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-danger disabled">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
+                                        @if(Auth::user()->admin)
+                                            <a type="button" class="btn btn-xs btn-success edit-diesel diesel-{{ $row->id }}" href="{{ url('diesel/update/' . $row->id) }}">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                                            </a>
+                                            <button type="button" class="btn btn-xs btn-danger delete-diesel diesel-{{ $row->id }}">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-xs btn-danger disabled">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
