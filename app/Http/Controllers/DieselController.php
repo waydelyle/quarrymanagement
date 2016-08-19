@@ -35,21 +35,16 @@ class DieselController extends Controller
 
         if($request->has('amount') || $request->has('meter') ){
 
-            $oldDiesel = Diesel::where('id', '<', $id)->first();
-
-            if($request->has('meter'))
-            {
-                $amount = $oldDiesel->meter - $request->get('meter');
-                $diesel->amount = $amount;
-                $diesel->meter = $request->get('meter');
-
+            if($request->has('vehicle_id')){
                 $diesel->vehicle_id = $request->get('vehicle_id');
+            }
 
-            } else {
-                $oldDiesel = Diesel::where('id', '<', $id)->first();
+            if($request->has('meter')) {
+                $diesel->meter = $request->get('meter');
+            }
 
+            if($request->has('amount')) {
                 $diesel->amount = $request->get('amount');
-                $diesel->meter = $oldDiesel->meter;
             }
 
             $diesel->update();

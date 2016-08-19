@@ -22,27 +22,22 @@
                         <form class="form-inline text-center">
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <label class="sr-only" for="amount">Oil</label>
                                 <div class="input-group">
-                                    @if($diesel->vehicle_id == 1)
-                                        <div class="input-group-addon">
-                                                <label for="vehicle_id">
-                                                    <select name="vehicle_id" class="vehicle-select">
-                                                        @if(!empty($vehicles))
-                                                            @foreach($vehicles as $vehicle)
-                                                                <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                </label>
-                                        </div>
+                                <label class="sr-only" for="amount">Oil</label>
+                                    @if($diesel->vehicle_id != 1)
+                                        <select class="form-control selectpicker" name="vehicle_id" title="Vehicle">
+                                            @if(!empty($vehicles))
+                                                @foreach($vehicles as $vehicle)
+                                                    <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        <div class="input-group-addon"> Vehicle </div>
+                                    @endif
                                         <input type="number" class="form-control" name="meter" id="meter" value="@if( ! empty($diesel)){{ $diesel->meter }}@endif" placeholder="Meter Reading">
                                         <div class="input-group-addon"> Reading </div>
-                                    @else
-                                        <div class="input-group-addon">Diesel</div>
                                         <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount" value="{{ $diesel->amount }}">
                                         <div class="input-group-addon">Litres</div>
-                                    @endif
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Save</button>

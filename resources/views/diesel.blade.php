@@ -76,7 +76,7 @@
                                             <a type="button" class="btn btn-xs btn-success edit-diesel diesel-{{ $row->id }}" href="{{ url('diesel/update/' . $row->id) }}">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                                             </a>
-                                            <button type="button" class="btn btn-xs btn-danger delete-diesel diesel-{{ $row->id }}">
+                                            <button type="button" class="btn btn-xs btn-danger delete-diesel diesel-{{ $row->id }}" id="{{ $row->id }}">
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
                                             </button>
                                         @else

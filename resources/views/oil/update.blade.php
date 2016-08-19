@@ -25,32 +25,26 @@
                                 <label class="sr-only" for="amount">Oil</label>
                                 <div class="input-group">
                                     @if($oil->vehicle_id != 1)
-                                    <div class="input-group-addon">
-                                            <label for="vehicle_id">
-                                                <select name="vehicle_id" class="vehicle-select">
-                                                    @if(!empty($vehicles))
-                                                        @foreach($vehicles as $vehicle)
-                                                            <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </label>
-                                    </div>
+                                        <select class="form-control selectpicker" name="vehicle_id" title="Vehicle">
+                                            @if(!empty($vehicles))
+                                                @foreach($vehicles as $vehicle)
+                                                    <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        <div class="input-group-addon"> Vehicle </div>
                                     @endif
                                     <div class="input-group-addon">Oil</div>
                                     <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount" value="{{ $oil->amount }}">
                                     <div class="input-group-addon">Litres</div>
-                                    <div class="input-group-addon">
-                                        <label for="type_id">
-                                            <select name="oil_type_id" value="{{ $oil->id }}">
-                                                @if(!empty($oilTypes))
-                                                    @foreach($oilTypes as $type)
-                                                        <option value="{{ $type->id }}">{{ $type->label }}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </label>
-                                    </div>
+                                    <select class="form-control selectpicker" name="oil_type_id" value="{{ $oil->id }}" title="Oil Type">
+                                        @if(!empty($oilTypes))
+                                            @foreach($oilTypes as $type)
+                                                <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <div class="input-group-addon">Litres</div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Save</button>
