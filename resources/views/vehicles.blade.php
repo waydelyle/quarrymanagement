@@ -39,7 +39,7 @@
                                     <td>{{ $vehicle->registration }}</td>
                                     <td>
                                         @if(Auth::user()->admin)
-                                            <a type="button" class="btn btn-xs btn-success edit-vehicle vehicle-{{ $vehicle->id }}" href="{{ url('vehicle/update/' . $vehicle->id) }}" id="{{ $row->id }}">
+                                            <a type="button" class="btn btn-xs btn-success edit-vehicle vehicle-{{ $vehicle->id }}" href="{{ url('vehicle/update/' . $vehicle->id) }}" id="{{ $vehicle->id }}">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                                             </a>
                                             <button type="button" class="btn btn-xs btn-danger delete-vehicle vehicle-{{ $vehicle->id }}" id={{ $vehicle->id }}>
