@@ -11,7 +11,7 @@ class DieselController extends Controller
 
     public function show()
     {
-        $diesel = Diesel::take(100)->get();
+        $diesel = Diesel::orderBy('created_at', 'desc')->take(100)->get();
         $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
         $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 

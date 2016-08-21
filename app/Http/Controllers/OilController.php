@@ -12,7 +12,7 @@ class OilController extends Controller
 
     public function show()
     {
-        $oil = Oil::take(100)->get();
+        $oil = Oil::orderBy('created_at', 'desc')->take(100)->get();
         $oilTypes = OilType::all();
         $vehicles = Vehicle::where('id', '!=', Vehicle::NO_VEHICLE)->get();
         $calculatedOil = $this->calculate();
