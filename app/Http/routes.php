@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('history/diesel', 'HistoryController@diesel');
     Route::post('history/oil', 'HistoryController@oil');
 
+    // EmployeeController routes...
+    Route::get('/employees', 'EmployeeController@index');
 });
 
 // Authentication routes...
