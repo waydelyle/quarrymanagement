@@ -62,7 +62,7 @@
         @else
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
+                    <li class="visible-md visible-lg"><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
                     <li><a href="{{ url('history') }}"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
                     <li><a href="{{ url('diesel') }}"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
                     <li><a href="{{ url('oil') }}"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
