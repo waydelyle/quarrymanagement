@@ -6,6 +6,21 @@
     <script src="{{ asset('js/diesel.js') }}"></script>
 @endsection
 
+@section('menu')
+    <a class="btn btn-default btn-lg" href="{{ url('history') }}" role="button">
+        History
+    </a>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addDiesel">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+    </button>
+    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#subtractDiesel">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
+    </button>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#dieselTotals">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
+    </button>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -16,21 +31,6 @@
                         <span class="glyphicon glyphicon-oil" aria-hidden="true"></span>
                         Diesel
                     </h3>
-
-                    <div class="text-center">
-                        <a class="btn btn-default" href="{{ url('history') }}" role="button">
-                            History
-                        </a>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDiesel">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                        </button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#subtractDiesel">
-                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Subtract
-                        </button>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dieselTotals">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Stock
-                        </button>
-                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
@@ -40,24 +40,24 @@
                         <tr>
                             <th>Vehicle</th>
                             <th>Amount</th>
-                            <th>Action</th>
+                            <th class="visible-md visible-lg">Action</th>
                             <th>Meter Reading</th>
                             <th>Date</th>
-                            <th>Time</th>
-                            <th>Auth</th>
-                            <th>Manage</th>
+                            <th class="visible-md visible-lg">Time</th>
+                            <th class="visible-md visible-lg">Auth</th>
+                            <th class="visible-md visible-lg">Manage</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
                             <th>Vehicle</th>
                             <th>Amount</th>
-                            <th>Action</th>
+                            <th class="visible-md visible-lg">Action</th>
                             <th>Meter Reading</th>
                             <th>Date</th>
-                            <th>Time</th>
-                            <th>Auth</th>
-                            <th>Manage</th>
+                            <th class="visible-md visible-lg">Time</th>
+                            <th class="visible-md visible-lg">Auth</th>
+                            <th class="visible-md visible-lg">Manage</th>
                         </tr>
                         </tfoot>
                         <tbody id="diesel-table-body">
@@ -66,12 +66,12 @@
                                 <tr>
                                     <td>@if($row->vehicle->registration != 'no-vehicle'){{ $row->vehicle->registration }}@endif</td>
                                     <td>{{ $row->amount }}</td>
-                                    <td>@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
+                                    <td class="visible-md visible-lg">@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
                                     <td>{{ $row->meter }}</td>
                                     <td>{{ $row->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $row->created_at->format('H:m') }}</td>
-                                    <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
-                                    <td>
+                                    <td class="visible-md visible-lg">{{ $row->created_at->format('H:m') }}</td>
+                                    <td class="visible-md visible-lg">{{ $row->user->name }} {{ $row->user->surname }}</td>
+                                    <td class="visible-md visible-lg">
                                         @if(Auth::user()->admin)
                                             <a type="button" class="btn btn-xs btn-success edit-diesel diesel-{{ $row->id }}" href="{{ url('diesel/update/' . $row->id) }}">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit

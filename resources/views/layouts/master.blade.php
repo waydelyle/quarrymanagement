@@ -79,14 +79,18 @@
 <div class="container">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="page-header">
+    <div class="page-header text-center">
         <div class="container">
-            <h1 class="text-center">
+            <h1>
                 Quarry Management System
                 <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true"></span>
             </h1>
         </div>
     </div>
+
+        <div class="menu">
+            @yield('menu')
+        </div>
 
         @yield('content')
 

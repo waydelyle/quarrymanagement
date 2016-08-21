@@ -6,6 +6,12 @@
     <script src="{{ asset('js/vehicles.js') }}"></script>
 @endsection
 
+@section('menu')
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addVehicles">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+    </button>
+@endsection
+
 @section('content')
 
     <div class="row">
@@ -16,12 +22,6 @@
                         <span class="glyphicon glyphicon-scale" aria-hidden="true"></span>
                         Vehicles
                     </h3>
-
-                    <div class="text-center">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addVehicles">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-                        </button>
-                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
