@@ -119,17 +119,13 @@
                                 <div class="input-group-addon">Oil</div>
                                 <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
                                 <div class="input-group-addon">Litres</div>
-                                <div class="input-group-addon">
-                                    <label for="type_id">
-                                        <select name="oil_type_id">
-                                            @if(!empty($oilTypes))
-                                                @foreach($oilTypes as $type)
-                                                    <option value="{{ $type->id }}">{{ $type->label }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </label>
-                                </div>
+                                <select class="form-control" name="oil_type_id" title="Oil Type">
+                                    @if(!empty($oilTypes))
+                                        @foreach($oilTypes as $type)
+                                            <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success" id="add-oil-submit" data-dismiss="modal">Add</button>
@@ -153,30 +149,23 @@
                     <form class="form-inline" id="subtract-oil-form">
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">
-                                    <label for="vehicle_id">
-                                        <select name="vehicle_id" class="vehicle-select">
-                                            @if(!empty($vehicles))
-                                                @foreach($vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </label>
-                                </div>
+                                <select name="vehicle_id" class="form-control" title="Vehicle">
+                                    @if(!empty($vehicles))
+                                        @foreach($vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <div class="input-group-addon"> Vehicle </div>
                                 <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount">
-                                <div class="input-group-addon">
-                                    <label for="type_id">
-                                        <select name="oil_type_id">
-                                            @if(!empty($oilTypes))
-                                                @foreach($oilTypes as $type)
-                                                    <option value="{{ $type->id }}">{{ $type->label }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </label>
-                                </div>
                                 <div class="input-group-addon"> Litres </div>
+                                <select class="form-control" name="oil_type_id" title="Oil Type">
+                                    @if(!empty($oilTypes))
+                                        @foreach($oilTypes as $type)
+                                            <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-danger" id="subtract-oil-submit" data-dismiss="modal">Subtract</button>

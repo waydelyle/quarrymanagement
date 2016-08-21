@@ -144,15 +144,14 @@
                         <div class="form-group">
                             <label class="sr-only" for="amount">Diesel</label>
                             <div class="input-group">
-                                <div class="input-group-addon"> Vehicle
-                                    <select name="vehicle_id" class="vehicle-select">
-                                        @if(!empty($vehicles))
-                                            @foreach($vehicles as $vehicle)
-                                                <option class="vehicle-{{ $vehicle->id }}" value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                                <select name="vehicle_id" class="form-control" title="Vehicle">
+                                    @if(!empty($vehicles))
+                                        @foreach($vehicles as $vehicle)
+                                            <option class="vehicle-{{ $vehicle->id }}" value="{{ $vehicle->id }}">{{ $vehicle->registration }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <div class="input-group-addon"> Vehicle </div>
                                 <input type="number" class="form-control" name="meter" id="meter" value="@if( ! empty($meter)){{ $meter->meter }}@endif" placeholder="Meter Reading">
                                 <div class="input-group-addon"> Reading </div>
                             </div>
