@@ -40,24 +40,24 @@
                         <tr>
                             <th>Vehicle</th>
                             <th>Oil</th>
-                            <th class="visible-md visible-lg">Action</th>
+                            <th>Action</th>
                             <th>Amount</th>
-                            <th class="visible-sm visible-md visible-lg">Date</th>
-                            <th class="visible-md visible-lg">Time</th>
-                            <th class="visible-md visible-lg">Auth</th>
-                            <th class="visible-md visible-lg">Manage</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Auth</th>
+                            <th>Manage</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
                             <th>Vehicle</th>
                             <th>Oil</th>
-                            <th class="visible-md visible-lg">Action</th>
+                            <th>Action</th>
                             <th>Amount</th>
-                            <th class="visible-sm visible-md visible-lg">Date</th>
-                            <th class="visible-md visible-lg">Time</th>
-                            <th class="visible-md visible-lg">Auth</th>
-                            <th class="visible-md visible-lg">Manage</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Auth</th>
+                            <th>Manage</th>
                         </tr>
                         </tfoot>
                         <tbody id="oil-table-body">
@@ -66,12 +66,12 @@
                                 <tr>
                                     <td>@if($row->vehicle->registration != 'no-vehicle'){{ $row->vehicle->registration }}@endif</td>
                                     <td>{{ $row->type->label }}</td>
-                                    <td class="visible-md visible-lg">@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
+                                    <td>@if($row->amount > 0)<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@else <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> @endif</td>
                                     <td>{{ $row->amount }}</td>
-                                    <td class="visible-sm visible-md visible-lg">{{ $row->created_at->format('Y-m-d') }}</td>
-                                    <td class="visible-md visible-lg">{{ $row->created_at->format('H:m') }}</td>
-                                    <td class="visible-md visible-lg">{{ $row->user->name }} {{ $row->user->surname }}</td>
-                                    <td class="visible-md visible-lg">
+                                    <td>{{ $row->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $row->created_at->format('H:m') }}</td>
+                                    <td>{{ $row->user->name }} {{ $row->user->surname }}</td>
+                                    <td>
                                         @if(Auth::user()->admin)
                                             <a type="button" class="btn btn-xs btn-success edit-oil oil-{{ $row->id }}" href="{{ url('oil/update/' . $row->id) }}">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit

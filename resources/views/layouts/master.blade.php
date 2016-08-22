@@ -62,7 +62,7 @@
         @else
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="visible-md visible-lg"><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
+                    <li><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
                     <li><a href="{{ url('history') }}"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
                     <li><a href="{{ url('diesel') }}"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
                     <li><a href="{{ url('oil') }}"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span> Oil</a></li>
@@ -83,7 +83,9 @@
         <div class="container">
             <h1>
                 Quarry Management System
-                <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true"></span>
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#suggestion">
+                    <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true"></span>
+                </button>
             </h1>
         </div>
     </div>
@@ -97,7 +99,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Wansley Quaries 2017</p>
+        <p class="text-center">&copy; Wansley Quaries 2017</p>
     </footer>
 </div> <!-- /container -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -177,10 +179,61 @@
                 <h4 class="modal-title">Success</h4>
             </div>
             <div class="modal-body">
-                <p class="text-success" id="success-message"></p>
+
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="First Name" class="form-control" value="{{ old('name') }}" required>
+                </div>
+
             </div>
             <div class="modal-footer text-center">
                 <button type="submit" class="btn btn-success" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Suggestion Modal -->
+<div class="modal fade text-center" id="suggestion" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Please enter your suggestion.</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url('suggestion') }}">
+                    {!! csrf_field() !!}
+
+                    <div class="form-group">
+                        <textarea name="suggestion" placeholder="I would like to be able to..." class="form-control" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        On a scale of 1-10, how important is this suggestion to you?
+                    </div>
+
+                    <div class="form-group">
+                        <select name="priority" class="form-control" title="Priority">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Send</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
             </div>
         </div>
     </div>

@@ -48,6 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // EmployeeController routes...
     Route::get('/employees', 'EmployeeController@index');
+
+    // Suggestion Box
+    Route::post('suggestion', 'DieselController@suggest');
 });
 
 // Authentication routes...
