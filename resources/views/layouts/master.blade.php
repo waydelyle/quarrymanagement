@@ -156,13 +156,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="code"></h4>
+                <h4 class="modal-title" id="error-code"></h4>
             </div>
             <div class="modal-body">
-                <p class="text-danger" id="message"></p>
+                <p class="text-danger" id="error-message"></p>
             </div>
             <div class="modal-footer text-center">
                 <button type="submit" class="btn btn-danger" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade text-center" id="success" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-success" id="success-message"></p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="submit" class="btn btn-success" data-dismiss="modal">Okay</button>
             </div>
         </div>
     </div>

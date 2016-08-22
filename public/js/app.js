@@ -17,10 +17,16 @@ var ajax = {
         $.post(url, data)
             .done(function( data ) {
                 self.response = self.parse( data );
+
+                if(self.response.message != undefined){
+                    self.success( self.response.message );
+                }
+
             }).fail(function() {
                 self.response.message = 'Failed to connect.';
                 self.response.code = 500;
         });
+
         if(self.response.code != undefined){
             self.error(self.response.code, self.response.message);
 
@@ -32,8 +38,13 @@ var ajax = {
 
     error: function( code, message ){
         $('#error').modal('show');
-        $('#code').text(code + ' error.');
-        $('#message').text(message);
+        $('#error-code').text(code + ' error.');
+        $('#error-message').text(message);
+    },
+
+    success: function( message ){
+        $('#success').modal('show');
+        $('#success-message').text(message);
     },
 
     parse: function( data ){

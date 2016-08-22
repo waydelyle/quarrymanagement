@@ -75,7 +75,8 @@ class DieselController extends Controller
                     'meter' => $diesel->meter,
                     'date' => $diesel->created_at->format('Y-m-d'),
                     'time' => $diesel->created_at->format('H:m'),
-                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname
+                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname,
+                    'message' => 'You added ' . $diesel->amount . ' diesel. The current meter number is ' . $diesel->meter . '.'
                 ];
 
                 return json_encode($response);
@@ -112,7 +113,8 @@ class DieselController extends Controller
                     'meter' => $diesel->meter,
                     'date' => $diesel->created_at->format('Y-m-d'),
                     'time' => $diesel->created_at->format('H:m'),
-                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname
+                    'auth' => $diesel->user->name . ' ' . $diesel->user->surname,
+                    'message' => 'You subtracted ' . $diesel->amount . ' diesel for ' . $diesel->vehicle->registration . '. The current meter number is ' . $diesel->meter . '.'
                 ];
 
                 return json_encode($response);
