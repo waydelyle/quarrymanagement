@@ -81,6 +81,8 @@ class DieselController extends Controller
                 ];
 
                 return json_encode($response);
+            } else {
+                return json_encode(['code' => '', 'message' => 'You first need to click subtract to register the current meter reading.']);
             }
 
         }
@@ -120,6 +122,12 @@ class DieselController extends Controller
                 ];
 
                 return json_encode($response);
+            } else {
+                return json_encode([
+                    'code' => '',
+                    'message' => 'The meter number you entered was ' . $request->get('meter')
+                        . ' the last entered meter number was ' . $meter->meter . '. Please enter a new meter number.'
+                ]);
             }
         }
     }
@@ -132,8 +140,7 @@ class DieselController extends Controller
             $diesel->delete();
 
             return json_encode([
-                'message' => 'Vehicle successfully deleted.',
-                'type' => 'success'
+                'message' => 'This diesel reading was deleted.'
             ]);
         }
     }

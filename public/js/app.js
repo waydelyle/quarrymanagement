@@ -18,7 +18,7 @@ var ajax = {
             .done(function( data ) {
                 self.response = self.parse( data );
 
-                if(self.response.message != undefined){
+                if( self.response.code == undefined && self.response.message != undefined ){
                     self.success( self.response.message );
                 }
 
