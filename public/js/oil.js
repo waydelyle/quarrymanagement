@@ -120,6 +120,7 @@ $(document).ready(function(){
     var i = 0;
 
     $('#oil-table').DataTable({
+        "order": [[ 4, "desc" ]],
         initComplete: function () {
             this.api().columns().every( function () {
 

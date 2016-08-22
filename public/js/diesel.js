@@ -121,6 +121,7 @@ $(document).ready(function(){
     var i = 0;
 
     $('#diesel-table').DataTable({
+        "order": [[ 4, "desc" ]],
         initComplete: function () {
             this.api().columns().every( function () {
 
