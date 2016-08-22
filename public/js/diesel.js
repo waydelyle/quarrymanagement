@@ -69,15 +69,17 @@ var diesel = {
         return '<tr>' +
             '<td>' + data.vehicle + '</td>' +
             '<td>' + data.amount + '</td>' +
-            '<td class="visible-sm visible-md">' + data.action + '</td>' +
+            '<td>' + data.action + '</td>' +
             '<td>' + data.meter + '</td>' +
-            '<td class="visible-md visible-lg visible-sm">' + data.date + '</td>' +
-            '<td class="visible-md visible-lg">' + data.time + '</td>' +
-            '<td class="visible-md visible-lg">' + data.auth + '</td>' +
-            '<td class="visible-md visible-lg"><button type="button" class="btn btn-xs btn-danger delete-diesel diesel-' + data.id + '" id="' + data.id +'">' +
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true">' +
-            '</span>' +
-            '</button>' +
+            '<td>' + data.date + '</td>' +
+            '<td>' + data.time + '</td>' +
+            '<td>' + data.auth + '</td>' +
+            '<td><a type="button" class="btn btn-xs btn-success edit-diesel diesel-' + data.id + '" href="/diesel/update/' + data.id + '">' +
+            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit' +
+            '</a> ' +
+            '<button type="button" class="btn btn-xs btn-danger delete-diesel diesel-' + data.id + '" id="' + data.id + '">' +
+            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete' +
+            '</button></td>' +
             '</td></tr>';
     },
 

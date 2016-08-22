@@ -69,6 +69,7 @@ class DieselController extends Controller
                 ]);
 
                 $response = [
+                    'id' => $diesel->id,
                     'vehicle' => ($diesel->vehicle->id != Vehicle::NO_VEHICLE) ? $diesel->vehicle->registration : '',
                     'amount' => $diesel->amount,
                     'action' => '+',
@@ -107,6 +108,7 @@ class DieselController extends Controller
                 ]);
 
                 $response = [
+                    'id' => $diesel->id,
                     'vehicle' => ($diesel->vehicle->id != Vehicle::NO_VEHICLE) ? $diesel->vehicle->registration : '',
                     'amount' => $diesel->amount,
                     'action' => '-',
