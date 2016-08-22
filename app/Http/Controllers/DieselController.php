@@ -58,6 +58,10 @@ class DieselController extends Controller
     {
         if($request->ajax()){
 
+            if($request->get('amount') <= 0 ){
+                return json_encode(['code' => '', 'message' => 'You have not entered any valid amount of diesel.']);
+            }
+
             $meter = Diesel::whereNotNull('meter')->orderBy('id', 'desc')->first();
 
             if( ! empty($meter)){
