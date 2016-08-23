@@ -83,9 +83,7 @@
         <div class="container">
             <h1>
                 Quarry Management System
-                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#suggestion">
-                    <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true"></span>
-                </button>
+                <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true" data-toggle="modal" data-target="#suggestion"></span>
             </h1>
         </div>
     </div>
@@ -179,11 +177,7 @@
                 <h4 class="modal-title">Success</h4>
             </div>
             <div class="modal-body">
-
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="First Name" class="form-control" value="{{ old('name') }}" required>
-                </div>
-
+                <p class="text-success" id="success-message"></p>
             </div>
             <div class="modal-footer text-center">
                 <button type="submit" class="btn btn-success" data-dismiss="modal">Okay</button>
