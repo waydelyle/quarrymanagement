@@ -34,16 +34,26 @@ class QuarryStockManagement extends Migration
             $table->string('surname');
             $table->string('photo')->nullable();
             $table->string('email')->nullable();
-            $table->integer('id_number')->unique();
-            $table->decimal('salary', 5, 2)->nullable();
+            $table->bigInteger('id_number')->unique();
+            $table->decimal('salary', 20, 2)->nullable();
             $table->timestamps();
         });
 
         Schema::create('stock', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('empoyee_id')->references('id')->on('employees');
-            $table->integer('stock_type_id')->references('id')->on('stock_types');
-            $table->integer('job_type_id')->references('id')->on('jobs');
+            $table->integer('employee_id')->references('id')->on('employees');
+            $table->integer('stock_item_id')->references('id')->on('stock_items');
+            $table->integer('job_id')->references('id')->on('jobs');
+            $table->integer('amount');
+            $table->string('description');
+            $table->timestamps();
+        });
+
+        Schema::create('stock_count', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->references('id')->on('users');
+            $table->integer('stock_item_id')->references('id')->on('stock_items');
+            $table->integer('amount');
             $table->string('description');
             $table->timestamps();
         });
@@ -60,6 +70,7 @@ class QuarryStockManagement extends Migration
             $table->increments('id');
             $table->string('slug')->unique();
             $table->string('label');
+            $table->integer('stock_type_id')->references('id')->on('stock_types');
             $table->integer('count');
             $table->string('description');
             $table->timestamps();
@@ -73,6 +84,11 @@ class QuarryStockManagement extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('jobs');
+        Schema::drop('job_types');
+        Schema::drop('employees');
+        Schema::drop('stock');
+        Schema::drop('stock_types');
+        Schema::drop('stock_items');
     }
 }

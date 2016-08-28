@@ -48,9 +48,37 @@ Route::group(['middleware' => ['auth']], function () {
 
     // EmployeeController routes...
     Route::get('/employees', 'EmployeeController@index');
+    Route::post('/employee/add', 'EmployeeController@add');
+
+    // JobsController routes...
+    Route::get('/jobs', 'JobsController@index');
+    Route::get('/job-types', 'JobTypesController@index');
+    Route::post('/jobs/add', 'JobsController@add');
+
+    // StockController routes...
+    Route::get('/stock-usage', 'StockController@index');
+    Route::post('/stock-usage/add', 'StockController@add');
+
+    // StockItemsController routes...
+    Route::get('/stock-items', 'StockItemsController@index');
+    Route::post('/stock-item/add', 'StockItemsController@add');
+    Route::post('/stock-item/addStock', 'StockItemsController@addStock');
+    Route::get('/stock-item/update/{id}', 'StockItemsController@update');
+    Route::get('/stock-item/delete/{id}', 'StockItemsController@delete');
+
+    // StockTypesController routes...
+    Route::get('/stock-types', 'StockTypesController@index');
+    Route::post('/stock-type/add', 'StockTypesController@add');
+
+    // JobTypesController routes...
+    Route::get('/job-types', 'JobTypesController@index');
+    Route::post('/job-type/add', 'JobTypesController@add');
 
     // Suggestion Box
     Route::post('suggestion', 'DieselController@suggest');
+
+    // StockController
+    Route::get('stock', 'StockController@index');
 });
 
 // Authentication routes...

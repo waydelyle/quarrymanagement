@@ -62,6 +62,7 @@
         @else
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="{{ url('stock') }}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Stock</a></li>
                     <li><a href="{{ url('stats') }}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</a></li>
                     <li><a href="{{ url('history') }}"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> History</a></li>
                     <li><a href="{{ url('diesel') }}"><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Diesel</a></li>
@@ -85,14 +86,17 @@
                 Quarry Management System
                 <span class="glyphicon glyphicon-leaf wansley" aria-hidden="true" data-toggle="modal" data-target="#suggestion"></span>
             </h1>
+            @if(Session::has('error'))
+                <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
+            @endif
         </div>
     </div>
 
-        <div class="menu">
-            @yield('menu')
-        </div>
+    <div class="menu">
+        @yield('menu')
+    </div>
 
-        @yield('content')
+    @yield('content')
 
     <hr>
 
@@ -147,7 +151,6 @@
             </div>
         </div>
     </div>
-
 @endif
 
 <!-- Error Modal -->

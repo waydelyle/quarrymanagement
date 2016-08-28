@@ -1,12 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Suggestion;
 use Auth;
 use App\Diesel;
-use App\Http\Requests;
 use App\Vehicle;
+use App\Suggestion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class DieselController extends Controller
